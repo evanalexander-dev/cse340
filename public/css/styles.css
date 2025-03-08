@@ -1,6 +1,178 @@
-/******* Change Box Model ***************/
 *,
 *:before,
 *:after {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-image: url("/images/site/checkerboard.jpg");
+  background-repeat: repeat;
+  overflow-x: hidden;
+}
+
+#wrapper {
+  max-width: 1024px;
+  margin: 0 auto;
+  background-color: white;
+}
+
+#top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+}
+
+.siteName a {
+  all: unset;
+  cursor: pointer;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+#tools a {
+  text-decoration: none;
+  color: #333;
+  font-size: 12px;
+}
+
+nav {
+  background-color: #1d1e2f;
+}
+
+nav ul {
+  display: flex;
+  justify-content: space-around;
+}
+
+h1 {
+  padding-top: 10px;
+  padding-left: 15px;
+}
+
+h3 {
+  margin-bottom: 12px;
+}
+
+nav ul li {
+  display: block;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  padding: 15px 0;
+}
+
+footer {
+  padding: 15px;
+  font-size: 12px;
+  color: #444;
+  text-align: center;
+}
+
+/* START index.ejs */
+#index-sections {
+  display: grid;
+  grid-template-areas:
+  "car"
+  "reviews"
+  "upgrades";
+}
+
+section {
+  margin: 10px;
+}
+
+.feature-car {
+  grid-area: car;
+  position: relative;
+  display: inline-block;
+}
+
+.car-image img {
+  position: relative;
+  width: 100%;
+}
+
+.car-details {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.car-features {
+  list-style: none;
+  padding-left: 10px;
+  margin-bottom: 10px;
+}
+
+.cta-button {
+  height: 50px;
+  width: auto;
+  max-width: 241px;
+}
+
+.reviews {
+  grid-area: reviews;
+}
+
+.reviews ul {
+  padding-left: 20px;
+}
+
+.reviews li {
+  margin-bottom: 8px;
+}
+
+.upgrades {
+  grid-area: upgrades;
+}
+
+.upgrade-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.upgrade-item {
+  background-color: #00a0d2;
+  padding: 10px 10px 0 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.upgrade-image {
+  width: auto;
+  height: 100px;
+  margin-bottom: 10px;
+}
+
+.upgrade-link {
+  background-color: white;
+  color: blue;
+  text-decoration: underline;
+  text-align: center;
+  font-size: 14px;
+  width: calc(100% + 20px);
+  padding-bottom: 5px;
+}
+/* END index.ejs */
+
+@media screen and (min-width: 1024px) {
+  #wrapper {
+    margin: 25px auto;
+    border: 6px solid #00a0d2;
+    border-radius: 15px;
+  }
+
+  #index-sections {
+    grid-template-areas:
+    "car car"
+    "upgrades reviews";
+  }
 }
