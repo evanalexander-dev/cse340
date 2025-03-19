@@ -48,6 +48,18 @@ nav ul {
   justify-content: space-around;
 }
 
+nav ul li {
+  display: block;
+  text-decoration: none;
+  padding: 15px 0;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  text-align: center;
+}
+
 h1 {
   padding-top: 10px;
   padding-left: 15px;
@@ -55,14 +67,6 @@ h1 {
 
 h3 {
   margin-bottom: 12px;
-}
-
-nav ul li {
-  display: block;
-  color: white;
-  text-decoration: none;
-  text-align: center;
-  padding: 15px 0;
 }
 
 footer {
@@ -81,7 +85,7 @@ footer {
   "upgrades";
 }
 
-section {
+#index-sections > section {
   margin: 10px;
 }
 
