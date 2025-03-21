@@ -61,12 +61,7 @@ nav ul li a {
 }
 
 h1 {
-  padding-top: 10px;
-  padding-left: 15px;
-}
-
-h3 {
-  margin-bottom: 12px;
+  padding: 10px;
 }
 
 footer {
@@ -76,7 +71,7 @@ footer {
   text-align: center;
 }
 
-/* START index.ejs */
+/* START index */
 #index-sections {
   display: grid;
   grid-template-areas:
@@ -120,6 +115,10 @@ footer {
   max-width: 241px;
 }
 
+.reviews > h3 {
+  margin-bottom: 12px;
+}
+
 .reviews {
   grid-area: reviews;
 }
@@ -130,6 +129,10 @@ footer {
 
 .reviews li {
   margin-bottom: 8px;
+}
+
+.upgrades > h3 {
+  margin-bottom: 12px;
 }
 
 .upgrades {
@@ -165,7 +168,116 @@ footer {
   width: calc(100% + 20px);
   padding-bottom: 5px;
 }
-/* END index.ejs */
+/* END index */
+
+/* START inventory/classification */
+#inv-display {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 15px;
+}
+
+#inv-display li {
+  flex: 1;
+  min-width: 280px;
+  max-width: 350px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 10px;
+}
+
+#inv-display li:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+#inv-display img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.namePrice {
+  padding: 15px;
+}
+
+.namePrice hr {
+  margin-bottom: 10px;
+  border: none;
+  height: 1px;
+  background-color: #e0e0e0;
+}
+
+.namePrice h2 {
+  font-size: 18px;
+}
+
+.namePrice h2 a {
+  color: #333;
+  text-decoration: none;
+}
+
+.namePrice h2 a:hover {
+  color: #00a0d2;
+}
+
+.namePrice span {
+  font-size: 20px;
+  font-weight: bold;
+  color: #2b6f39;
+}
+/* END inventory/classification */
+
+/* START inventory/detail */
+.detail-card {
+  display: grid;
+  grid-template-areas:
+  "title"
+  "image"
+  "details";
+}
+
+.detail-card h1 {
+  grid-area: title;
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #eee;
+}
+
+.detail-card img {
+  grid-area: image;
+  width: 100%;
+  height: auto;
+}
+
+.detail-card-details {
+  grid-area: details;
+}
+
+.detail-important {
+  padding: 10px;
+  display: flex;
+}
+
+.detail-description {
+  line-height: 1.5;
+  color: #333;
+}
+
+.detail-price {
+  justify-self: right;
+  font-size: 28px;
+  font-weight: bold;
+  color: #2b6f39;
+}
+
+.detail-other {
+  padding: 10px;
+  line-height: 1.25;
+}
+/* END inventory/detail */
 
 @media screen and (min-width: 1024px) {
   #wrapper {
@@ -178,5 +290,11 @@ footer {
     grid-template-areas:
     "car car"
     "upgrades reviews";
+  }
+
+  .detail-card {
+    grid-template-areas:
+    "image title"
+    "image details";
   }
 }

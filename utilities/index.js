@@ -57,6 +57,30 @@ Util.buildClassificationGrid = async function(data){
   return grid
 }
 
+/* **************************************
+* Build the inventory item detail HTML
+* ************************************ */
+Util.buildInventoryDetailCard = async function(data){
+  let yearMakeModel = `${data.inv_year} ${data.inv_make} ${data.inv_model}`
+  let numberFormat = new Intl.NumberFormat('en-US')
+
+  let card = `<div class="detail-card">
+    <h1>${yearMakeModel}</h1>
+    <img src="${data.inv_image}" alt="${yearMakeModel}">
+    <div class="detail-card-details">
+      <div class="detail-important">
+        <p class="detail-description">${data.inv_description}</p>
+        <p class="detail-price">$${numberFormat.format(data.inv_price)}</p>
+      </div>
+      <div class="detail-other">
+        <p><b>Mileage:</b> ${numberFormat.format(data.inv_miles)}</p>
+        <p><b>Color:</b> ${data.inv_color}</p>
+      </div>
+    </div>
+  </div>`
+  return card
+}
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 
