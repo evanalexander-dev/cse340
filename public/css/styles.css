@@ -71,6 +71,12 @@ footer {
   text-align: center;
 }
 
+/* START errors/error */
+#error-message {
+  padding: 0 20px;
+}
+/* END errors/error */
+
 /* START index */
 #index-sections {
   display: grid;
@@ -174,6 +180,7 @@ footer {
 #inv-display {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
   padding: 15px;
 }
