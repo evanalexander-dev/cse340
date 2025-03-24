@@ -61,7 +61,27 @@ nav ul li a {
 }
 
 h1 {
-  padding: 10px;
+  padding: 15px;
+}
+
+ul.notice {
+  padding-left: 33px;
+}
+
+ul.notice li::marker {
+  color: black;
+}
+
+input {
+  border-left: 5px solid grey;
+}
+
+input:required:invalid, input:focus:invalid {
+  border-left: 5px solid red;
+}
+
+input:required:valid {
+  border-left: 5px solid green;
 }
 
 footer {
@@ -175,6 +195,102 @@ footer {
   padding-bottom: 5px;
 }
 /* END index */
+
+/* START account/login */
+.login-container {
+  margin: 1rem auto;
+  padding: 30px;
+  max-width: 300px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.login-container form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.login-container form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.login-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.signup-link {
+  text-align: center;
+  margin-top: 15px;
+}
+.signup-link a {
+  color: #1877f2;
+  text-decoration: none;
+}
+/* END account/login */
+
+/* START account/register */
+.register-container {
+  margin: 1rem auto;
+  padding: 30px;
+  width: 300px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.register-container form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.register-container form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.password-wrapper {
+  position: relative;
+}
+.show-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+}
+.register-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #1877f2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+/* END account/register */
+
+.password-requirements {
+  font-size: 0.8em;
+  color: #666;
+  margin-top: -10px;
+  margin-bottom: 15px;
+}
+.password-requirements ul {
+  padding-left: 20px;
+  margin: 5px 0 0;
+}
 
 /* START inventory/classification */
 #inv-display {
