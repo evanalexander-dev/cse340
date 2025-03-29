@@ -1,0 +1,32 @@
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } else {
+    res.redirect('/')
+} %>
+
+<%- messages() %>
+
+<% if (errors) { %>
+<ul class="notice">
+<% errors.array().forEach(error => { %>
+    <li><%= error.msg %></li>
+<%  }) %>
+</ul>
+<% } %>
+
+<div class="add-classification-container">
+    <form id="addClassificationForm" action="/inv/manage/add-classification" method="post">        
+        <label for="classification">Classification Name *</label>
+        <input type="text" id="classification" name="classification_name" required pattern="^[\w\d]*$" value="<%= locals.classification_name %>">
+
+        <div class="classification-requirements">
+            Classification name must:
+            <ul>
+                <li>Contain no spaces</li>
+                <li>Contain no special characters</li>
+            </ul>
+        </div>
+        
+        <button type="submit" class="add-classification-btn">ADD CLASSIFICATION</button>
+    </form>
+</div>

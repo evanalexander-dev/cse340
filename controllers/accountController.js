@@ -69,7 +69,10 @@ async function registerAccount(req, res) {
     res.status(501).render("account/register", {
       title: "Registration",
       nav,
-      errors: null
+      errors: null,
+      account_firstname,
+      account_lastname,
+      account_emai
     })
   }
 }

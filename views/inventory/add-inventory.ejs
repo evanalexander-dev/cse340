@@ -1,0 +1,45 @@
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } else {
+    res.redirect('/')
+} %>
+
+<%- messages() %>
+
+<% if (errors) { %>
+<ul class="notice">
+<% errors.array().forEach(error => { %>
+    <li><%= error.msg %></li>
+<%  }) %>
+</ul>
+<% } %>
+
+<div class="add-inventory-container">
+    <form id="addInventoryForm" action="/inv/manage/add-inventory" method="post">  
+        <label for="make">Make *</label>
+        <input type="text" id="make" name="inv_make" maxlength="30" required value="<%= locals.inv_make %>">
+
+        <label for="model">Model *</label>
+        <input type="text" id="model" name="inv_model" maxlength="30" required value="<%= locals.inv_model %>">
+
+        <label for="year">Year *</label>
+        <input type="number" id="year" name="inv_year" min="1900" max="2099" required value="<%= locals.inv_year %>">
+
+        <label for="description">Description *</label>
+        <textarea id="description" name="inv_description" rows="4" minlength="10" maxlength="1000" required><%= locals.inv_description %></textarea>
+
+        <label for="price">Price *</label>
+        <input type="number" id="price" name="inv_price" min="0" step="0.01" required value="<%= locals.inv_price %>">
+
+        <label for="miles">Miles *</label>
+        <input type="number" id="miles" name="inv_miles" min="0" required value="<%= locals.inv_miles %>">
+
+        <label for="color">Color *</label>
+        <input type="text" id="color" name="inv_color" required pattern="^[a-zA-Z\s-]*$" value="<%= locals.inv_color %>">
+
+        <label for="classificationList">Classification *</label>
+        <%- classifications %>
+        
+        <button type="submit" class="add-inventory-btn">ADD INVENTORY</button>
+    </form>
+</div>

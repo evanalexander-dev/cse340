@@ -72,15 +72,15 @@ ul.notice li::marker {
   color: black;
 }
 
-input {
+input, select, textarea {
   border-left: 5px solid grey;
 }
 
-input:required:invalid, input:focus:invalid {
+input:required:invalid, input:focus:invalid, select:required:invalid, select:focus:invalid, textarea:required:invalid, textarea:focus:invalid {
   border-left: 5px solid red;
 }
 
-input:required:valid {
+input:required:valid, select:required:valid, textarea:required:valid {
   border-left: 5px solid green;
 }
 
@@ -382,6 +382,7 @@ footer {
 .detail-important {
   padding: 10px;
   display: flex;
+  justify-content: space-between;
 }
 
 .detail-description {
@@ -390,7 +391,6 @@ footer {
 }
 
 .detail-price {
-  justify-self: right;
   font-size: 28px;
   font-weight: bold;
   color: #2b6f39;
@@ -401,6 +401,98 @@ footer {
   line-height: 1.25;
 }
 /* END inventory/detail */
+
+/* START inventory/management */
+.management-list {
+  display: flex;
+  justify-content: space-around;
+}
+
+.management-list li {
+  all: unset;
+}
+
+.management-list li a {
+  all: unset;
+  cursor: pointer;
+  color: #0000aa;
+  text-decoration: underline;
+}
+/* END inventory/management */
+
+/* START inventory/add-classification */
+.add-classification-container {
+  margin: 1rem auto;
+  padding: 30px;
+  max-width: 300px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.add-classification-container form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.add-classification-container form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.add-classification-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #1877f2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.classification-requirements {
+  font-size: 0.8em;
+  color: #666;
+  margin-top: -10px;
+  margin-bottom: 15px;
+}
+.classification-requirements ul {
+  padding-left: 20px;
+  margin: 5px 0 0;
+}
+/* END inventory/add-classification */
+
+/* START inventory/add-inventory */
+.add-inventory-container {
+  margin: 1rem auto;
+  padding: 30px;
+  max-width: 300px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.add-inventory-container form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.add-inventory-container form input, .add-inventory-container form select, .add-inventory-container form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.add-inventory-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #1877f2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+/* END inventory/add-inventory */
 
 @media screen and (min-width: 1024px) {
   #wrapper {
