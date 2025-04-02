@@ -40,9 +40,11 @@ invCont.buildByInventoryId = async function (req, res, next) {
  * ************************** */
 invCont.buildManagement = async function (req, res, next) {
   let nav = await utilities.getNav()
+  const classifications = await utilities.buildClassificationList()
   res.render("./inventory/management", {
     title: "Inventory Management",
     nav,
+    classifications,
   })
 }
 
@@ -124,13 +126,15 @@ invCont.addInventory = async function (req, res) {
   let nav = await utilities.getNav()
 
   if (insertResult) {
+    const classifications = await utilities.buildClassificationList()
     req.flash(
       "notice",
-      `Success! ${inv_color} ${inv_year} ${inv_make} ${inv_model} created.`
+      `Success! ${inv_year} ${inv_make} ${inv_model} created.`
     )
     res.status(201).render("inventory/management", {
       title: "Inventory Management",
       nav,
+      classifications,
       errors: null
     })
   } else {
@@ -141,6 +145,103 @@ invCont.addInventory = async function (req, res) {
       nav,
       classifications,
       errors: null,
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_description,
+      inv_price,
+      inv_miles,
+      inv_color,
+      classification_id
+    })
+  }
+}
+
+/* ***************************
+ *  Return Inventory by Classification As JSON
+ * ************************** */
+invCont.getInventoryJSON = async (req, res, next) => {
+  const classification_id = parseInt(req.params.classification_id)
+  const invData = await invModel.getInventoryByClassificationId(classification_id)
+  if (invData[0].inv_id) {
+    return res.json(invData)
+  } else {
+    next(new Error("No data returned"))
+  }
+}
+
+/* ***************************
+ *  Build edit inventory view
+ * ************************** */
+invCont.buildEditInventory = async function (req, res, next) {
+  const inventory_id = parseInt(req.params.inventory_id)
+  let nav = await utilities.getNav()
+  let itemData = await invModel.getInventoryItemByInventoryId(inventory_id)
+  let classifications = await utilities.buildClassificationList(itemData.classification_id)
+  let itemName = `${itemData.inv_year} ${itemData.inv_make} ${itemData.inv_model}`
+  res.render("./inventory/edit-inventory", {
+
+    title: `Edit ${itemName}`,
+    nav,
+    classifications,
+    errors: null,
+    inv_id: itemData.inv_id,
+    inv_make: itemData.inv_make,
+    inv_model: itemData.inv_model,
+    inv_year: itemData.inv_year,
+    inv_description: itemData.inv_description,
+    inv_image: itemData.inv_image,
+    inv_thumbnail: itemData.inv_thumbnail,
+    inv_price: itemData.inv_price,
+    inv_miles: itemData.inv_miles,
+    inv_color: itemData.inv_color,
+    classification_id: itemData.classification_id,
+  })
+}
+
+/* ****************************************
+*  Process update inventory form
+* *************************************** */
+invCont.updateInventory = async function (req, res) {
+  const { inv_id, inv_make, inv_model, inv_year, inv_description, inv_price, inv_miles, inv_color, classification_id } = req.body
+
+  const updateResult = await invModel.updateInventory(
+    inv_id,
+    inv_make,
+    inv_model,
+    inv_year,
+    inv_description,
+    inv_price,
+    inv_miles,
+    inv_color,
+    classification_id
+  )
+
+  let nav = await utilities.getNav()
+
+  if (updateResult) {
+    const itemName = `${updateResult.inv_year} ${updateResult.inv_make} ${updateResult.inv_model}`
+    const classifications = await utilities.buildClassificationList()
+    req.flash(
+      "notice",
+      `Success! The ${itemName} was successfully updated.`
+    )
+    res.status(201).render("inventory/management", {
+      title: "Inventory Management",
+      nav,
+      classifications,
+      errors: null
+    })
+  } else {
+    const classifications = await utilities.buildClassificationList(classification_id)
+    const itemName = `${updateResult.inv_year} ${updateResult.inv_make} ${updateResult.inv_model}`
+    req.flash("notice", "Sorry, the update failed.")
+    res.status(501).render("inventory/edit-inventory", {
+      title: `Edit ${itemName}`,
+      nav,
+      classifications,
+      errors: null,
+      inv_id,
       inv_make,
       inv_model,
       inv_year,

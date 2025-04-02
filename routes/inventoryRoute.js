@@ -8,6 +8,17 @@ const invController = require("../controllers/invController")
 
 // Route to build management view
 router.get("/", utilities.handleErrors(invController.buildManagement));
+// Route to handle getting inventory for management
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON));
+// Route to build edit inventory view
+router.get("/edit/:inventory_id", utilities.handleErrors(invController.buildEditInventory));
+// Route to process update inventory form
+router.post(
+    "/update/",
+    invValidate.inventoryRules(),
+    invValidate.checkUpdateData,
+    utilities.handleErrors(invController.updateInventory)
+);
 // Route to build add classification view
 router.get("/manage/add-classification", utilities.handleErrors(invController.buildAddClassification));
 // Route to process add classification form

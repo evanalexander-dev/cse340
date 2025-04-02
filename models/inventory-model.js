@@ -75,13 +75,28 @@ async function checkExistingClassification(classification_name){
 async function insertInventory(inv_make, inv_model, inv_year, inv_description, inv_price, inv_miles, inv_color, classification_id) {
     try {
         const data = await pool.query(
-            `INSERT INTO public.inventory (inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
+            "INSERT INTO public.inventory (inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)",
             [inv_make, inv_model, inv_year, inv_description, "/images/vehicles/no-image.png", "/images/vehicles/no-image-tn.png", inv_price, inv_miles, inv_color, classification_id]
         )
-        return data
+        return data.rows[0]
     } catch (error) {
-        console.error("insertinventory error " + error)
+        console.error("inventory error " + error)
     }
 }
 
-module.exports = {getClassifications, getInventoryByClassificationId, getInventoryItemByInventoryId, insertClassification, checkExistingClassification, insertInventory};
+/* ***************************
+ *  Update inventory item
+ * ************************** */
+async function updateInventory(inv_id, inv_make, inv_model, inv_year, inv_description, inv_price, inv_miles, inv_color, classification_id) {
+    try {
+        const data = await pool.query(
+            "UPDATE public.inventory SET inv_make = $1, inv_model = $2, inv_year = $3, inv_description = $4, inv_price = $5, inv_miles = $6, inv_color = $7, classification_id = $8 WHERE inv_id = $9 RETURNING *",
+            [inv_make, inv_model, inv_year, inv_description, inv_price, inv_miles, inv_color, classification_id, inv_id]
+        )
+        return data.rows[0]
+    } catch (error) {
+        console.error("updateinventory error " + error)
+    }
+}
+
+module.exports = {getClassifications, getInventoryByClassificationId, getInventoryItemByInventoryId, insertClassification, checkExistingClassification, insertInventory, updateInventory};

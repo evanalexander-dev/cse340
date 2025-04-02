@@ -403,6 +403,10 @@ footer {
 /* END inventory/detail */
 
 /* START inventory/management */
+.management-wrapper {
+  margin: 0 25px;
+}
+
 .management-list {
   display: flex;
   justify-content: space-around;
@@ -416,6 +420,43 @@ footer {
   all: unset;
   cursor: pointer;
   color: #0000aa;
+  text-decoration: underline;
+}
+
+#inventoryDisplay {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+#inventoryDisplay th, 
+#inventoryDisplay td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+#inventoryDisplay thead {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+#inventoryDisplay tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+#inventoryDisplay td:nth-child(2),
+#inventoryDisplay td:nth-child(3) {
+  text-align: right;
+  width: 80px;
+}
+
+#inventoryDisplay a {
+  text-decoration: none;
+  color: #0066cc;
+}
+
+#inventoryDisplay a:hover {
   text-decoration: underline;
 }
 /* END inventory/management */
@@ -493,6 +534,43 @@ footer {
   cursor: pointer;
 }
 /* END inventory/add-inventory */
+
+/* START inventory/edit-inventory */
+.edit-inventory-container {
+  margin: 1rem auto;
+  padding: 30px;
+  max-width: 300px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.edit-inventory-container form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.edit-inventory-container form input, .edit-inventory-container form select, .edit-inventory-container form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.edit-inventory-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #1877f2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.edit-inventory-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: #808080;
+}
+/* END inventory/edit-inventory */
 
 @media screen and (min-width: 1024px) {
   #wrapper {
