@@ -1,0 +1,57 @@
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } else {
+    res.redirect('/')
+} %>
+
+<%- messages() %>
+
+<% if (errors) { %>
+<ul class="notice">
+<% errors.array().forEach(error => { %>
+    <li><%= error.msg %></li>
+<%  }) %>
+</ul>
+<% } %>
+
+<div class="update-account-container">
+    <form id="updateAccountForm" action="/account/update" method="post">
+        <h2>Account Update</h2>
+        
+        <label for="account_firstname">First name *</label>
+        <input type="text" id="account_firstname" name="account_firstname" required value="<%= locals.account_firstname %>">
+
+        <label for="account_lastname">Last name *</label>
+        <input type="text" id="account_lastname" name="account_lastname" required value="<%= locals.account_lastname %>">
+
+        <label for="account_email">Email *</label>
+        <input type="email" id="account_email" name="account_email" required value="<%= locals.account_email %>">
+
+        <input type="hidden" name="account_id" value="<%= locals.account_id %>">
+        
+        <button type="submit" class="update-account-btn">Update Account</button>
+    </form>
+
+    <form id="updatePasswordForm" action="/account/update/password" method="post">
+        <h2>Change Password</h2>
+        
+        <p class="password-info">Entering a new password below will change your current password. Password must meet the requirements.</p>
+        
+        <label for="account_password">New Password *</label>
+        <input type="password" id="account_password" name="account_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+
+        <div class="password-requirements">
+            Password must:
+            <ul>
+                <li>Be at least 12 characters long</li>
+                <li>Contain 1 capital letter</li>
+                <li>Contain 1 number</li>
+                <li>Contain 1 special character</li>
+            </ul>
+        </div>
+
+        <input type="hidden" name="account_id" value="<%= locals.account_id %>">
+        
+        <button type="submit" class="update-password-btn">Change Password</button>
+    </form>
+</div>

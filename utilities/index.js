@@ -117,7 +117,7 @@ Util.checkJWTToken = (req, res, next) => {
      if (err) {
       req.flash("Please log in")
       res.clearCookie("jwt")
-      return res.redirect("/account/login")
+      return req.session.save(() => {res.redirect("/account/login")})
      }
      res.locals.accountData = accountData
      res.locals.loggedin = 1
@@ -136,9 +136,27 @@ Util.checkLogin = (req, res, next) => {
     next()
   } else {
     req.flash("notice", "Please log in.")
-    return res.redirect("/account/login")
+    return req.session.save(() => {res.redirect("/account/login")})
   }
- }
+}
+
+/* ****************************************
+ *  Check Employee or Admin
+ * ************************************ */
+Util.checkEmployeeAdmin = (req, res, next) => {
+  if (res.locals.loggedin) {
+    const account_type = res.locals.accountData.account_type
+    if (account_type === "Employee" || account_type === "Admin") {
+      next()
+    } else {
+      req.flash("notice", "Please log in with appropriate access.")
+      return req.session.save(() => {res.redirect("/account/login")})
+    }
+  } else {
+    req.flash("notice", "Please log in.")
+    return req.session.save(() => {res.redirect("/account/login")})
+  }
+}
 
 /* ****************************************
  * Middleware For Handling Errors

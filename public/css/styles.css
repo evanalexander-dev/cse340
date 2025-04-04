@@ -196,6 +196,105 @@ footer {
 }
 /* END index */
 
+/* START account/default */
+.account-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.account-container h1 {
+  margin-bottom: 20px;
+  font-size: 28px;
+  color: #1d1e2f;
+  border-bottom: 2px solid #00a0d2;
+  padding-bottom: 10px;
+}
+
+.account-container h2 {
+  font-size: 24px;
+  margin: 15px 0;
+  color: #333;
+}
+
+.account-container h3 {
+  font-size: 20px;
+  margin: 20px 0 10px 0;
+  color: #1d1e2f;
+  font-weight: bold;
+}
+
+.account-links {
+  margin: 15px 0;
+}
+
+.account-links a {
+  display: block;
+  color: #0066cc;
+  text-decoration: none;
+  margin: 8px 0;
+  padding: 5px 0;
+  transition: color 0.3s;
+}
+
+.account-links a:hover {
+  color: #00a0d2;
+  text-decoration: underline;
+}
+
+.account-links a.update-link {
+  margin-bottom: 20px;
+}
+
+.inventory-section {
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid #eee;
+}
+/* END account/default */
+
+/* START account/update */
+.update-account-container {
+  margin: 1rem auto;
+  padding: 30px;
+  max-width: 600px;
+}
+.update-account-container form {
+  margin-bottom: 2rem;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.update-account-container form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.update-account-container form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.update-account-btn, .update-password-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #1877f2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.password-info {
+  font-size: 0.9em;
+  color: #555;
+  margin-bottom: 15px;
+}
+/* END account/update */
+
 /* START account/login */
 .login-container {
   margin: 1rem auto;
