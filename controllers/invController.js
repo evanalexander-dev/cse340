@@ -254,4 +254,52 @@ invCont.updateInventory = async function (req, res) {
   }
 }
 
+/* ****************************************
+*  Build delete confirmation view
+* *************************************** */
+invCont.buildDeleteConfirmation = async function (req, res, next) {
+  const inventory_id = parseInt(req.params.inventory_id)
+  let nav = await utilities.getNav()
+  let itemData = await invModel.getInventoryItemByInventoryId(inventory_id)
+  let itemName = `${itemData.inv_year} ${itemData.inv_make} ${itemData.inv_model}`
+  res.render("./inventory/delete-confirm", {
+    title: `Delete ${itemName}`,
+    nav,
+    errors: null,
+    inv_id: itemData.inv_id,
+    inv_make: itemData.inv_make,
+    inv_model: itemData.inv_model,
+    inv_year: itemData.inv_year,
+    inv_price: itemData.inv_price,
+  })
+}
+
+/* ****************************************
+*  Process delete inventory form
+* *************************************** */
+invCont.deleteInventoryItem = async function (req, res) {
+  const { inv_id } = req.body
+
+  const deleteResult = await invModel.deleteInventoryItem(inv_id)
+
+  let nav = await utilities.getNav()
+
+  if (deleteResult) {
+    const classifications = await utilities.buildClassificationList()
+    req.flash(
+      "notice",
+      `Success! The inventory item was successfully deleted.`
+    )
+    res.status(201).render("inventory/management", {
+      title: "Inventory Management",
+      nav,
+      classifications,
+      errors: null
+    })
+  } else {
+    req.flash("notice", "Sorry, the delete failed.")
+    req.session.save(() => {res.status(501).redirect(`/inv/delete/${inv_id}`)})
+  }
+}
+
 module.exports = invCont;

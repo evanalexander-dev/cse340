@@ -44,5 +44,9 @@ router.post(
 router.get("/type/:classificationId", utilities.handleErrors(invController.buildByClassificationId));
 // Route to get inventory item by inventory id
 router.get("/detail/:inventoryId", utilities.handleErrors(invController.buildByInventoryId));
+// Route to build delete confirmation view
+router.get("/delete/:inventory_id", utilities.checkEmployeeAdmin, utilities.handleErrors(invController.buildDeleteConfirmation));
+// Route to process the deletion
+router.post("/delete", utilities.checkEmployeeAdmin, utilities.handleErrors(invController.deleteInventoryItem));
 
 module.exports = router;

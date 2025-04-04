@@ -671,6 +671,46 @@ footer {
 }
 /* END inventory/edit-inventory */
 
+/* START inventory/delete-confirm */
+.delete-inventory-container {
+  margin: 1rem auto;
+  padding: 30px;
+  max-width: 300px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.delete-inventory-container form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.delete-inventory-container form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.delete-confirm-message {
+  color: #dc3545;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+.delete-inventory-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.delete-inventory-btn:hover {
+  background-color: #c82333;
+}
+/* END inventory/delete-confirm */
+
 @media screen and (min-width: 1024px) {
   #wrapper {
     margin: 25px auto;

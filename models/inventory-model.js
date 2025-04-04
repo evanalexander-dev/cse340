@@ -56,16 +56,16 @@ async function insertClassification(classification_name) {
     }
 }
 
-/* **********************
- *   Check for existing classification
- * ********************* */
+/* ***************************
+ *  Check for existing classification
+ * ************************** */
 async function checkExistingClassification(classification_name){
     try {
         const sql = "SELECT * FROM public.classification WHERE classification_name = $1"
         const classification = await pool.query(sql, [classification_name])
         return classification.rowCount
     } catch (error) {
-        return error.message
+        return console.error("checkexistingclassification error " + error)
     }
 }
 
@@ -78,9 +78,9 @@ async function insertInventory(inv_make, inv_model, inv_year, inv_description, i
             "INSERT INTO public.inventory (inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)",
             [inv_make, inv_model, inv_year, inv_description, "/images/vehicles/no-image.png", "/images/vehicles/no-image-tn.png", inv_price, inv_miles, inv_color, classification_id]
         )
-        return data.rows[0]
+        return data
     } catch (error) {
-        console.error("inventory error " + error)
+        console.error("insertinventory error " + error)
     }
 }
 
@@ -99,4 +99,17 @@ async function updateInventory(inv_id, inv_make, inv_model, inv_year, inv_descri
     }
 }
 
-module.exports = {getClassifications, getInventoryByClassificationId, getInventoryItemByInventoryId, insertClassification, checkExistingClassification, insertInventory, updateInventory};
+/* ***************************
+ *  Delete Inventory Item
+ * ************************** */
+async function deleteInventoryItem(inv_id){
+    try {
+        const sql = "DELETE FROM public.inventory WHERE inv_id = $1"
+        const data = await pool.query(sql, [inv_id])
+        return data
+    } catch (error) {
+        return console.error("deleteinventoryitem error " + error)
+    }
+}
+
+module.exports = {getClassifications, getInventoryByClassificationId, getInventoryItemByInventoryId, insertClassification, checkExistingClassification, insertInventory, updateInventory, deleteInventoryItem};
