@@ -46,5 +46,32 @@ router.post(
 )
 // Route to process logout
 router.get("/logout", utilities.handleErrors(accountController.logoutAccount))
+// Route to deliver the account management view
+router.get("/manage", utilities.checkAdmin, utilities.handleErrors(accountController.buildManagement))
+// Route to deliver the account update admin view
+router.get("/manage/update/:account_id", utilities.checkLogin, utilities.checkAdmin, utilities.handleErrors(accountController.buildAccountUpdateAdmin))
+// Route to process the account update admin
+router.post(
+    "/manage/update",
+    utilities.checkLogin,
+    utilities.checkAdmin,
+    regValidate.accountUpdateRules(),
+    regValidate.checkAccountData,
+    utilities.handleErrors(accountController.updateAccountAdmin)
+)
+// Route to process the password update admin
+router.post(
+    "/manage/update/password",
+    utilities.checkLogin,
+    utilities.checkAdmin,
+    regValidate.passwordRules(),
+    regValidate.checkPasswordData,
+    utilities.handleErrors(accountController.updatePasswordAdmin)
+)
+// Route to deliver the delete account confirmation view
+router.get("/manage/delete/:account_id", utilities.checkAdmin, utilities.handleErrors(accountController.buildDeleteConfirmation))
+// Route to process the deletion
+router.post("/manage/delete", utilities.checkAdmin, utilities.handleErrors(accountController.deleteAccount))
+
 
 module.exports = router;

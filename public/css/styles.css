@@ -254,6 +254,85 @@ footer {
 }
 /* END account/default */
 
+/* START account/management */
+#accountDisplay {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+#accountDisplay th, 
+#accountDisplay td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+#accountDisplay thead {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+#accountDisplay tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+#accountDisplay td:nth-child(4),
+#accountDisplay td:nth-child(5) {
+  text-align: right;
+  width: 80px;
+}
+
+#accountDisplay a {
+  text-decoration: none;
+  color: #0066cc;
+}
+
+#accountDisplay a:hover {
+  text-decoration: underline;
+}
+/* END account/management */
+
+/* START account/delete-confirm */
+.delete-account-container {
+  margin: 1rem auto;
+  padding: 30px;
+  max-width: 300px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.delete-account-container form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.delete-account-container form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.delete-account-container form input:read-only {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: #C0C0C0;
+}
+.delete-account-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.delete-account-btn:hover {
+  background-color: #c82333;
+}
+/* END inventory/delete-confirm */
+
 /* START account/update */
 .update-account-container {
   margin: 1rem auto;
@@ -271,7 +350,7 @@ footer {
   margin-bottom: 5px;
   font-weight: bold;
 }
-.update-account-container form input {
+.update-account-container form input, .update-account-container form select {
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;
@@ -691,6 +770,11 @@ footer {
   border: 1px solid #ddd;
   border-radius: 4px;
   box-sizing: border-box;
+}
+.delete-inventory-container form input:read-only {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: #C0C0C0;
 }
 .delete-confirm-message {
   color: #dc3545;

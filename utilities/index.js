@@ -1,3 +1,4 @@
+const accountModel = require("../models/account-model")
 const invModel = require("../models/inventory-model")
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
@@ -156,6 +157,57 @@ Util.checkEmployeeAdmin = (req, res, next) => {
     req.flash("notice", "Please log in.")
     return req.session.save(() => {res.redirect("/account/login")})
   }
+}
+
+/* ****************************************
+ *  Check Admin
+ * ************************************ */
+Util.checkAdmin = (req, res, next) => {
+  if (res.locals.loggedin) {
+    const account_type = res.locals.accountData.account_type
+    if (account_type === "Admin") {
+      next()
+    } else {
+      req.flash("notice", "Please log in with appropriate access.")
+      return req.session.save(() => {res.redirect("/account/login")})
+    }
+  } else {
+    req.flash("notice", "Please log in.")
+    return req.session.save(() => {res.redirect("/account/login")})
+  }
+}
+
+/* **************************************
+* Build the account management table
+* ************************************ */
+Util.buildAccountManagementTable = async function () {
+  let data = await accountModel.getAllAccounts()
+  let table = '<table id="accountDisplay"><thead><tr><th>Name</th><th>Email</th><th>Account Type</th><td>&nbsp;</td><td>&nbsp;</td></tr></thead><tbody>'
+  data.forEach((row) => {
+    table += `<tr><td>${row.account_firstname} ${row.account_lastname}</td><td>${row.account_email}</td><td>${row.account_type}</td><td><a href="/account/manage/update/${row.account_id}" title="Click to update account">Update</a></td><td><a href="/account/manage/delete/${row.account_id}" title="Click to delete account">Delete</a></td></tr>`
+  })
+  table += "</tbody></table>"
+  return table
+}
+
+/* **************************************
+* Build the account type list element for forms
+* ************************************ */
+Util.buildAccountTypeList = async function (account_type = null) {
+  let data = await accountModel.getAccountTypes()
+  let accountTypeList = '<select name="account_type" id="account_type" required>'
+    data.forEach((row) => {
+      accountTypeList += '<option value="' + row.account_type + '"'
+      if (
+        account_type != null &&
+        row.account_type == account_type
+      ) {
+        accountTypeList += " selected "
+      }
+      accountTypeList += ">" + row.account_type + "</option>"
+    })
+    accountTypeList += "</select>"
+    return accountTypeList
 }
 
 /* ****************************************

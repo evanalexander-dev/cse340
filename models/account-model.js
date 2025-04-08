@@ -28,7 +28,7 @@ async function checkExistingEmail(account_email){
 /* *****************************
 * Return account data using email address
 * ***************************** */
-async function getAccountByEmail (account_email) {
+async function getAccountByEmail(account_email) {
   try {
     const result = await pool.query(
       'SELECT account_id, account_firstname, account_lastname, account_email, account_type, account_password FROM account WHERE account_email = $1',
@@ -54,6 +54,18 @@ async function getAccountById(account_id) {
 }
 
 /* *****************************
+* Return all account data
+* ***************************** */
+async function getAllAccounts() {
+  try {
+    const result = await pool.query('SELECT * FROM account')
+    return result.rows
+  } catch (error) {
+    return new Error("No accounts found")
+  }
+}
+
+/* *****************************
 *   Update account information
 * *************************** */
 async function updateAccount(account_firstname, account_lastname, account_email, account_id) {
@@ -63,6 +75,25 @@ async function updateAccount(account_firstname, account_lastname, account_email,
       account_firstname,
       account_lastname,
       account_email,
+      account_id
+    ])
+    return data.rows[0]
+  } catch (error) {
+    return error.message
+  }
+}
+
+/* *****************************
+*   Update account information -- admin (lets you change account type)
+* *************************** */
+async function updateAccountAdmin(account_firstname, account_lastname, account_email, account_type, account_id) {
+  try {
+    const sql = "UPDATE account SET account_firstname = $1, account_lastname = $2, account_email = $3, account_type = $4 WHERE account_id = $5 RETURNING *"
+    const data = await pool.query(sql, [
+      account_firstname,
+      account_lastname,
+      account_email,
+      account_type,
       account_id
     ])
     return data.rows[0]
@@ -84,4 +115,30 @@ async function updatePassword(account_password, account_id) {
   }
 }
 
-module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, getAccountById, updateAccount, updatePassword }
+/* ***************************
+ *  Delete Account
+ * ************************** */
+async function deleteAccount(account_id){
+  try {
+      const sql = "DELETE FROM public.account WHERE account_id = $1"
+      const data = await pool.query(sql, [account_id])
+      return data
+  } catch (error) {
+      return error.message
+  }
+}
+
+/* ***************************
+ *  Get all account types
+ * ************************** */
+async function getAccountTypes(){
+  try {
+      const sql = "SELECT unnest(enum_range(NULL::account_type))::text AS account_type"
+      const data = await pool.query(sql)
+      return data.rows
+  } catch (error) {
+      return error.message
+  }
+}
+
+module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, getAccountById, getAllAccounts, updateAccount, updateAccountAdmin, updatePassword, deleteAccount, getAccountTypes }
